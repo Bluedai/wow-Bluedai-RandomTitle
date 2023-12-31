@@ -13,3 +13,25 @@ Change your character's title randomly with various trigger options!
 
 ### Description:
 RandomTitle allows you to change your WoW character's title at every login or on-demand! Exclude titles you don't want and customize when the title changes: a popup with a button at each login, a clickable icon near the minimap, or a chat command for macros. Perfect for players who want a dynamic display of their character's achievements!
+
+
+### Version History
+
+**0.2.0 - 31.12.2023**
+
+#### Improvements and Changes:
+- **Bug Fixes:**
+  - Fixed an issue where the addon only worked after reloading.
+
+- **File Updates:**
+  - Updated the 'toc' file, which improved tooltips in the addon selection.
+
+- **Feature Additions:**
+  - Options now display the number of titles you have.
+
+- **Code Optimizations:**
+  - Refined the code for consistent language use; it's mostly in English now.
+
+- **User Experience:**
+  - Removed debug chat outputs.
+  - Reworked the Minimap icon: it has a new symbol and is now movable.

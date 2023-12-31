@@ -1,4 +1,3 @@
-
 -- Global variables from init.lua:
 -- Bluedai_RT.IgnoredTitles
 -- Bluedai_RT.MyTitles
@@ -16,7 +15,6 @@ local function LoadTitles()
         end
     end
     sort(Bluedai_RT.MyTitles, function(a, b) return a["name"] < b["name"] end)
-    print("Liste der Title erstellt und sortiert!")
 end
 Bluedai_RT_Functions.LoadTitles = LoadTitles
 
@@ -38,7 +36,7 @@ local function SetRandomTitle()
     end
     if #eligibleIDs > 0 then
         local randomIndex = math.random(1, #eligibleIDs)
-        print("debug: RandomTitleID : " .. eligibleIDs[randomIndex] .. "  Titel:" .. GetTitleName(eligibleIDs[randomIndex]) )
+        -- print("debug: RandomTitleID : " .. eligibleIDs[randomIndex] .. "  Titel:" .. GetTitleName(eligibleIDs[randomIndex]) )
         SetCurrentTitle(eligibleIDs[randomIndex])
     end
 end
