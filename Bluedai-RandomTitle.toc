@@ -1,0 +1,14 @@
+## Interface: 100200
+## Title: Bluedai-Random Title
+## Title-deDE: Bluedai-Zufälliger Titel
+## Notes: changes the character title every time you log in
+## Notes-deDE: Ändert den Titel deines Charakters jedes mal wenn du dich einloggst
+## Author: Bluedai
+## Version: 0.1.0
+## SavedVariables:
+## SavedVariablesPerCharacter: Bluedai_RT
+
+init.lua
+config.lua
+core.lua
+minimap.lua
