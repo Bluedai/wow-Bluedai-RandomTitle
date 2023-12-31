@@ -1,10 +1,10 @@
 ## Interface: 100200
 ## Title: Bluedai-Random Title
-## Title-deDE: Bluedai-Zufälliger Titel
-## Notes: changes the character title every time you log in
-## Notes-deDE: Ändert den Titel deines Charakters jedes mal wenn du dich einloggst
+## Title-deDE: Bluedai-Random Title
+## Notes: Change your character's title randomly with various trigger options!
+## Notes-deDE: Ändere deinen Charaktertitel zufällig mit verschiedenen Auslöseoptionen!
 ## Author: Bluedai
-## Version: 0.1.0
+## Version: 0.2.0
 ## SavedVariables:
 ## SavedVariablesPerCharacter: Bluedai_RT
 
