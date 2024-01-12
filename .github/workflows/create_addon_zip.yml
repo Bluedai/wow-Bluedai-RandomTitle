@@ -1,0 +1,23 @@
+name: create Addon Zip
+run-name: create Addon Zip
+on:
+  workflow_dispatch:
+
+jobs:
+  create-addon-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Datei erstellen
+        run: |
+          expr 3 + 7 > homework.txt
+      - name: Upload file 
+        uses: actions/upload-artifact@v3
+        with:
+          name: homework
+          path: homework.txt
