@@ -1,23 +1,44 @@
-name: create Addon Zip
-run-name: create Addon Zip
+name: create new release
+run-name: create new release
 on:
   workflow_dispatch:
 
 jobs:
-  create-addon-zip:
+  create-new-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: List files in the repository
+
+      - name: Get current date
+        id: current_date
+        run: echo "date=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
+
+      - name: reorder Files
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: Datei erstellen
-        run: |
-          expr 3 + 7 > homework.txt
-      - name: Upload file 
-        uses: actions/upload-artifact@v3
+          mkdir Bluedai-RandomTitle
+          cp Bluedai-RandomTitle.toc config.lua core.lua init.lua minimap.lua minimap_icon.blp Bluedai-RandomTitle/
+
+      - name: Zip the Files
+        run: zip -r release_v${{ steps.current_date.outputs.date }}.zip Bluedai-RandomTitle/
+        
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: homework
-          path: homework.txt
+          tag_name: v_${{ steps.current_date.outputs.date }}
+          release_name: Release ${{ steps.current_date.outputs.date }}
+          draft: false
+          prerelease: false
+  
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release_v${{ steps.current_date.outputs.date }}.zip
+          asset_name: release_v${{ steps.current_date.outputs.date }}.zip
+          asset_content_type: application/zip
