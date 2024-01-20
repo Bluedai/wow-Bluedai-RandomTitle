@@ -1,12 +1,11 @@
 local addonName, addonTable = ...
 
 local minimapButton = CreateFrame("Button", "bd_RandomTitleMinimapButton", Minimap)
--- größe des Frames ( nicht des icons, sondern des Frame elements)
-minimapButton:SetSize(32, 32)
+minimapButton:SetSize(32, 32) -- Framesize, not iconsize 
 minimapButton:SetFrameStrata("MEDIUM")
 minimapButton:SetPoint("CENTER", Minimap, "LEFT", -20, 0)
 
--- welche Grafik bei Mouseover zusätzlich angezeigt wird. ( blauer ring aus dem Blizzard archiv)
+-- Mouseover Highlight Texture: blue ring from blizzard archive
 minimapButton:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight")
 
 -- Border
@@ -17,24 +16,40 @@ ring:SetPoint("CENTER", minimapButton, "CENTER", 0, 0)
 ring:SetTexture("Interface\\Minimap\\minimap-trackingborder")
 
 
--- Symbol festlegen 
+-- set symbol 
 local icon = minimapButton:CreateTexture(nil, "BACKGROUND")
 icon:SetSize(25, 25)
 icon:SetPoint("CENTER", minimapButton, "CENTER", 0, 0)
 icon:SetTexture("Interface\\AddOns\\"..addonName.."\\minimap_icon.blp")
 
--- funktion die beim click ausgeführt werden soll
-minimapButton:SetScript("OnClick", function()
-    Bluedai_RT_Functions.SetRandomTitle()
-end);
+-- Mouseover Text
+minimapButton:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:SetText("Bluedai-Random Title")
+    GameTooltip:Show()
+end)
+minimapButton:SetScript("OnLeave", function(self)
+    GameTooltip:Hide()
+end)
 
--- Mache das Minimap-Symbol verschiebbar
+-- left and right clicks 
+minimapButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+
+minimapButton:SetScript("OnClick", function(self, button)
+    if button == "LeftButton" then
+        Bluedai_RT_Functions.SetRandomTitle()
+    end
+    if button == "RightButton" then
+        InterfaceOptionsFrame_OpenToCategory("Bluedai-Random Title")
+    end
+end)
+
+-- make minimap icon movable 
 minimapButton:SetMovable(true)
-minimapButton:SetClampedToScreen(true) -- Verhindert, dass das Symbol außerhalb des Bildschirms gezogen wird
+minimapButton:SetClampedToScreen(true) -- Prevents the icon from being dragged outside of the screen
 minimapButton:EnableMouse(true)
-minimapButton:RegisterForDrag("LeftButton") -- Nur mit der linken Maustaste verschiebbar
+minimapButton:RegisterForDrag("LeftButton") -- Can only be moved with the left mouse button
 minimapButton:SetScript("OnDragStart", minimapButton.StartMoving)
 minimapButton:SetScript("OnDragStop", function(self)
     self:StopMovingOrSizing()
 end)
-
