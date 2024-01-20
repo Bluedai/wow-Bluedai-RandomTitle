@@ -32,7 +32,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v_${{ steps.get_version.outputs.version }}
+          tag_name: v_${{ steps.get_version.outputs.version }}_${{ steps.current_date.outputs.date }}
           release_name: Release ${{ steps.get_version.outputs.version }} - ${{ steps.current_date.outputs.date }}
           draft: false
           prerelease: false
