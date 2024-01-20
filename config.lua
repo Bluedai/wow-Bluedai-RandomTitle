@@ -47,7 +47,7 @@ end
 
 local function OptionIgnoredTitles()
     local scrollFrameHeight = 490
-    local scrollFrameWidth = 600
+    local scrollFrameWidth = 650
 
     local totalHeight = 0
 

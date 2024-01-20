@@ -41,3 +41,9 @@ local function SetRandomTitle()
     end
 end
 Bluedai_RT_Functions.SetRandomTitle = SetRandomTitle
+
+SLASH_BluedaiRandomTitle_brt1 = "/brt";
+SlashCmdList["BluedaiRandomTitle_brt"] = function (msg)
+    SetRandomTitle()
+end
+

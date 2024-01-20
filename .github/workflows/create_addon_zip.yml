@@ -14,13 +14,17 @@ jobs:
         id: current_date
         run: echo "date=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
 
+      - name: get version
+        id: get_version
+        run: echo "version=$(grep "^## Version:" Bluedai-RandomTitle.toc | cut -c13- )" >> $GITHUB_OUTPUT
+
       - name: reorder Files
         run: |
           mkdir Bluedai-RandomTitle
           cp Bluedai-RandomTitle.toc config.lua core.lua init.lua minimap.lua minimap_icon.blp Bluedai-RandomTitle/
 
       - name: Zip the Files
-        run: zip -r Bluedai-RandomTitle_v${{ steps.current_date.outputs.date }}.zip Bluedai-RandomTitle/
+        run: zip -r Bluedai-RandomTitle_v${{ steps.get_version.outputs.version }}.zip Bluedai-RandomTitle/
         
       - name: Create Release
         id: create_release
@@ -28,8 +32,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v_${{ steps.current_date.outputs.date }}
-          release_name: Release ${{ steps.current_date.outputs.date }}
+          tag_name: v_${{ steps.get_version.outputs.version }}
+          release_name: Release ${{ steps.get_version.outputs.version }} - ${{ steps.current_date.outputs.date }}
           draft: false
           prerelease: false
   
@@ -39,6 +43,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Bluedai-RandomTitle_v${{ steps.current_date.outputs.date }}.zip
-          asset_name: Bluedai-RandomTitle_v${{ steps.current_date.outputs.date }}.zip
+          asset_path: ./Bluedai-RandomTitle_v${{ steps.get_version.outputs.version }}.zip
+          asset_name: Bluedai-RandomTitle_v${{ steps.get_version.outputs.version }}.zip
           asset_content_type: application/zip

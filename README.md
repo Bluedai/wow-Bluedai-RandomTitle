@@ -12,10 +12,22 @@ Mit Zufallstitel kannst du deinen WoW Charaktertitel bei jedem Login oder per Kl
 Change your character's title randomly with various trigger options!
 
 ### Description:
-RandomTitle allows you to change your WoW character's title at every login or on-demand! Exclude titles you don't want and customize when the title changes: a popup with a button at each login, a clickable icon near the minimap, or a chat command for macros. Perfect for players who want a dynamic display of their character's achievements!
+RandomTitle allows you to change your WoW character's title at every login or on-demand! Exclude titles you don't want and customize when the title changes: a popup with a button at each login, a clickable icon near the minimap, or a chat command for macros. Perfect for players who want a dynamic display of their character's titles!
 
 
 ### Version History
+
+**0.3.0 - 20.01.2024**
+- **Feature Additions:**
+  - Added: New slash command /brt to set a random title.
+  - Added: Users can now directly access the options menu by right-clicking on the Minimap icon.
+
+- **User Experience:**
+  - Added a tooltip to the Minimap icon, displaying the addon's name for easy identification.
+  - Adjusted the options menu frame size for a seamless integration of the scrollbar at the right edge, providing additional space for longer titles.
+
+- **Code Optimizations:**
+  - Changing the comments in minimap.lua from German to English.
 
 **0.2.1 - 17.1.2024**
 
