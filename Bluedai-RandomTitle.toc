@@ -4,7 +4,7 @@
 ## Notes: Change your character's title randomly with various trigger options!
 ## Notes-deDE: Ändere deinen Charaktertitel zufällig mit verschiedenen Auslöseoptionen!
 ## Author: Bluedai
-## Version: 0.3.0
+## Version: 0.3.1
 ## SavedVariables:
 ## SavedVariablesPerCharacter: Bluedai_RT
 

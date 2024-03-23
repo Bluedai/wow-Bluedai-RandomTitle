@@ -17,7 +17,14 @@ RandomTitle allows you to change your WoW character's title at every login or on
 
 ### Version History
 
+**0.3.1 -23.03.2024**
+
+#### Improvements and Changes:
+- compatibility with WoW 10.2.6
+
 **0.3.0 - 20.01.2024**
+
+#### Improvements and Changes:
 - **Feature Additions:**
   - Added: New slash command /brt to set a random title.
   - Added: Users can now directly access the options menu by right-clicking on the Minimap icon.
