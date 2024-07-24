@@ -18,12 +18,22 @@ RandomTitle allows you to change your WoW character's title at every login or on
 ### Version History
 
 
-**0.3.2 -09.05.2024**
+**0.4.0 - 24.07.2024**
+- compatibility with WoW 11.0.0
+
+- **API Changes:**
+  - config.lua: The method InterfaceOptions_AddCategory was replaced with Settings.RegisterCanvasLayoutCategory because it no longer works after patch 11.0.
+  - minimap.lua: Updated to reflect changes in the configuration method. The call to InterfaceOptionsFrame_OpenToCategory was replaced with Settings.OpenToCategory.
+
+- **Code Optimizations:**
+  - Introduced Bluedai_RT_Variables to store global variables, starting with the new category variable.
+
+**0.3.2 - 09.05.2024**
 
 #### Improvements and Changes:
 - compatibility with WoW 10.2.7
 
-**0.3.1 -23.03.2024**
+**0.3.1 - 23.03.2024**
 
 #### Improvements and Changes:
 - compatibility with WoW 10.2.6
