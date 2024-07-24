@@ -2,6 +2,7 @@
 -- Bluedai_RT.IgnoredTitles
 -- Bluedai_RT.MyTitles
 -- Bluedai_RT_Functions = {}
+-- Bluedai_RT_Variables = {}
 
 local function LoadTitles()
     Bluedai_RT.MyTitles = {}

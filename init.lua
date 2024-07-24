@@ -1,4 +1,5 @@
 Bluedai_RT_Functions = {}
+Bluedai_RT_Variables = {}
 
 local frame = CreateFrame("FRAME") -- Need a frame to respond to events
 frame:RegisterEvent("ADDON_LOADED") -- Fired when saved variables are loaded

@@ -15,7 +15,6 @@ ring:SetTexCoord(0, 0.6, 0, 0.6)
 ring:SetPoint("CENTER", minimapButton, "CENTER", 0, 0)
 ring:SetTexture("Interface\\Minimap\\minimap-trackingborder")
 
-
 -- set symbol 
 local icon = minimapButton:CreateTexture(nil, "BACKGROUND")
 icon:SetSize(25, 25)
@@ -40,7 +39,12 @@ minimapButton:SetScript("OnClick", function(self, button)
         Bluedai_RT_Functions.SetRandomTitle()
     end
     if button == "RightButton" then
-        InterfaceOptionsFrame_OpenToCategory("Bluedai-Random Title")
+        local category = Bluedai_RT_Variables.Category
+        if category then
+            Settings.OpenToCategory(category:GetID())
+        else
+            print("Category not found")
+        end
     end
 end)
 

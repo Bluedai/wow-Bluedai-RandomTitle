@@ -1,7 +1,10 @@
 -- https://wowpedia.fandom.com/wiki/Using_the_Interface_Options_Addons_panel
 local panel = CreateFrame("Frame")
 panel.name = "Bluedai-Random Title"
-InterfaceOptions_AddCategory(panel)
+-- InterfaceOptions_AddCategory(panel) - doesn't work after 11.0 patch
+local category, layout = Settings.RegisterCanvasLayoutCategory(panel, "Bluedai-Random Title")
+Settings.RegisterAddOnCategory(category)
+Bluedai_RT_Variables.Category = category -- Save the category for minimap.lua
 
 -- Title
 local title = panel:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
@@ -105,4 +108,6 @@ local function OptionIgnoredTitles()
     -- Stelle die tatsächliche Höhe von 'content' basierend auf der Anzahl der Checkboxen ein
     content:SetHeight(totalHeight)
 end
+
+-- global functions
 Bluedai_RT_Functions.OptionIgnoredTitles = OptionIgnoredTitles
