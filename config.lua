@@ -26,6 +26,20 @@ checkBox:SetScript("OnClick", function(self)
     Bluedai_RT.EnabledLoginResponse = not Bluedai_RT.EnabledLoginResponse
 end)
 
+-- EnabledshownewTitle checkbox
+local checkBox2 = CreateFrame("CheckButton", "BluedaiRTEnabledshownewTitleCheckbox", panel, "ChatConfigCheckButtonTemplate")
+checkBox2:SetPoint("TOPLEFT", checkBox, "TOPLEFT", 325, 0  )
+
+BluedaiRTEnabledshownewTitleCheckboxText:SetText("Show New Title Popup")
+checkBox2.tooltip = "Display a popup to show the new title after it is randomly changed"
+
+checkBox2:SetScript("OnShow", function(self)
+    self:SetChecked(Bluedai_RT.EnabledshownewTitle)
+end)
+checkBox2:SetScript("OnClick", function(self)
+    Bluedai_RT.EnabledshownewTitle = not Bluedai_RT.EnabledshownewTitle
+end)
+
 local function isIgnored(id)
     for _, ignoredId in pairs(Bluedai_RT.IgnoredTitles) do
         if ignoredId == id then
