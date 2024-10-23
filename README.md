@@ -17,6 +17,9 @@ RandomTitle allows you to change your WoW character's title at every login or on
 
 ### Version History
 
+**0.4.3 - 23.10.2024**
+- compatibility with WoW 11.0.5
+
 **0.4.2 - 30.08.2024**
 - **Feature Additions:**
   - New Title Popup: After your character's title is randomly changed, the new title will now be displayed as a text popup. This popup appears in the center of the screen with a large and fades out after a few seconds. It provides immediate feedback on which title has been selected for your character.
