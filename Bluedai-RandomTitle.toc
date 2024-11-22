@@ -1,4 +1,4 @@
-## Interface: 110007
+## Interface: 110005, 110007
 ## Title: Bluedai-Random Title
 ## Title-deDE: Bluedai-Random Title
 ## Notes: Change your character's title randomly with various trigger options!
