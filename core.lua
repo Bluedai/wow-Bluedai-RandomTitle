@@ -19,6 +19,18 @@ local function LoadTitles()
 end
 Bluedai_RT_Functions.LoadTitles = LoadTitles
 
+local isLoadingTitles = false
+local function SafeLoadTitles()
+    if isLoadingTitles then
+        return
+    end
+    isLoadingTitles = true
+    Bluedai_RT_Functions.LoadTitles()
+    Bluedai_RT_Functions.configPanelUpdate()
+    isLoadingTitles = false
+end
+Bluedai_RT_Functions.SafeLoadTitles = SafeLoadTitles
+
 local function show_new_title()
     if Bluedai_RT_Variables.show and Bluedai_RT.EnabledshownewTitle then
         local new_title = UnitPVPName("player")

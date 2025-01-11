@@ -1,44 +1,67 @@
--- https://wowpedia.fandom.com/wiki/Using_the_Interface_Options_Addons_panel
-local panel = CreateFrame("Frame")
-panel.name = "Bluedai-Random Title"
--- InterfaceOptions_AddCategory(panel) - doesn't work after 11.0 patch
-local category, layout = Settings.RegisterCanvasLayoutCategory(panel, "Bluedai-Random Title")
-Settings.RegisterAddOnCategory(category)
-Bluedai_RT_Variables.Category = category -- Save the category for minimap.lua
+local function createPanel()
+    -- https://wowpedia.fandom.com/wiki/Using_the_Interface_Options_Addons_panel
+    local panel = CreateFrame("Frame")
+    panel.name = "Bluedai-Random Title"
+    local category, layout = Settings.RegisterCanvasLayoutCategory(panel, "Bluedai-Random Title")
+    Settings.RegisterAddOnCategory(category)
+    Bluedai_RT_Variables.Category = category -- Save the category for minimap.lua
+    Bluedai_RT_Variables.panel = panel
+end
 
--- Title
-local title = panel:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-title:SetPoint("TOPLEFT")
-title:SetText("Bluedai-Random Title")
+local function createContentFrame()
+    local panel = Bluedai_RT_Variables.panel
+    local contentFrame = CreateFrame("Frame", nil, panel)
+    contentFrame:SetPoint("TOPLEFT", 0, 0)
+    contentFrame:SetPoint("BOTTOMRIGHT", 0, 0)
+    Bluedai_RT_Variables.contentFrame = contentFrame
+end
 
--- EnabledLoginResponse checkbox
-local checkBox = CreateFrame("CheckButton", "BluedaiRTEnabledLoginResponseCheckbox", panel, "ChatConfigCheckButtonTemplate")
-checkBox:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -30)
+local function createContentFrameTitle()
+    local frame = Bluedai_RT_Variables.contentFrame
+    local title = frame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+    title:SetPoint("TOPLEFT")
+    title:SetText("Bluedai-Random Title")
+    Bluedai_RT_Variables.title = title
+end
 
-BluedaiRTEnabledLoginResponseCheckboxText:SetText("Enabled Login Response")
-checkBox.tooltip = "Enable or disable the button after login"
+local function destroyContentFrame()
+    if Bluedai_RT_Variables.contentFrame then
+        Bluedai_RT_Variables.contentFrame:Hide()
+        Bluedai_RT_Variables.contentFrame:SetParent(nil)
+        Bluedai_RT_Variables.contentFrame = nil
+    end
+end
 
-checkBox:SetScript("OnShow", function(self)
-    self:SetChecked(Bluedai_RT.EnabledLoginResponse)
-end)
+local function createCheckbox()
+    local frame = Bluedai_RT_Variables.contentFrame
+    local title = Bluedai_RT_Variables.title
 
-checkBox:SetScript("OnClick", function(self)
-    Bluedai_RT.EnabledLoginResponse = not Bluedai_RT.EnabledLoginResponse
-end)
+    -- EnabledLoginResponse checkbox
+    local checkBox = CreateFrame("CheckButton", nil, frame, "ChatConfigCheckButtonTemplate")
+    checkBox:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -30)
+    checkBox.Text:SetText("Enabled Login Response")
+    checkBox.tooltip = "Enable or disable the button after login"
 
--- EnabledshownewTitle checkbox
-local checkBox2 = CreateFrame("CheckButton", "BluedaiRTEnabledshownewTitleCheckbox", panel, "ChatConfigCheckButtonTemplate")
-checkBox2:SetPoint("TOPLEFT", checkBox, "TOPLEFT", 325, 0  )
+    checkBox:SetScript("OnShow", function(self)
+        self:SetChecked(Bluedai_RT.EnabledLoginResponse)
+    end)
+    checkBox:SetScript("OnClick", function(self)
+        Bluedai_RT.EnabledLoginResponse = not Bluedai_RT.EnabledLoginResponse
+    end)
 
-BluedaiRTEnabledshownewTitleCheckboxText:SetText("Show New Title Popup")
-checkBox2.tooltip = "Display a popup to show the new title after it is randomly changed"
+    -- EnabledshownewTitle checkbox
+    local checkBox2 = CreateFrame("CheckButton", nil, frame, "ChatConfigCheckButtonTemplate")
+    checkBox2:SetPoint("TOPLEFT", checkBox, "TOPLEFT", 325, 0  )
+    checkBox2.Text:SetText("Show New Title Popup")
+    checkBox2.tooltip = "Display a popup to show the new title after it is randomly changed"
 
-checkBox2:SetScript("OnShow", function(self)
-    self:SetChecked(Bluedai_RT.EnabledshownewTitle)
-end)
-checkBox2:SetScript("OnClick", function(self)
-    Bluedai_RT.EnabledshownewTitle = not Bluedai_RT.EnabledshownewTitle
-end)
+    checkBox2:SetScript("OnShow", function(self)
+        self:SetChecked(Bluedai_RT.EnabledshownewTitle)
+    end)
+    checkBox2:SetScript("OnClick", function(self)
+        Bluedai_RT.EnabledshownewTitle = not Bluedai_RT.EnabledshownewTitle
+    end)
+end
 
 local function isIgnored(id)
     for _, ignoredId in pairs(Bluedai_RT.IgnoredTitles) do
@@ -62,25 +85,37 @@ local function updateIgnoredTitles(id, shouldBeIgnored)
     end
 end
 
+local function getTitleCount()
+    local count = 0
+    for _ in pairs(Bluedai_RT.MyTitles) do
+        count = count + 1
+    end
+    return count
+end
+
+local function DisplayTitleCount()
+    local frame = Bluedai_RT_Variables.contentFrame
+    local infoText = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    infoText:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -80)
+    infoText:SetText("You have " .. getTitleCount() .. " titles")
+end
+
 local function OptionIgnoredTitles()
+    local frame = Bluedai_RT_Variables.contentFrame
     local scrollFrameHeight = 490
     local scrollFrameWidth = 650
-
     local totalHeight = 0
 
-    local scrollFrame = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
+    local scrollFrame = CreateFrame("ScrollFrame", nil, frame, "UIPanelScrollFrameTemplate")
     scrollFrame:SetSize(scrollFrameWidth, scrollFrameHeight)
     scrollFrame:SetPoint("TOPLEFT", -10, -100)
 
     local content = CreateFrame("Frame", nil, scrollFrame)
-    content:SetSize(20, 2000) -- Setze eine vorläufige Höhe
+    content:SetSize(20, 2000) -- set the height temporarily to a large number
     scrollFrame:SetScrollChild(content)
 
     -- create checkbox for each title
-    local TitelCount = 0
-    for _ in pairs(Bluedai_RT.MyTitles) do
-        TitelCount = TitelCount + 1
-    end
+    TitelCount = getTitleCount()
     local halfTitelCount = math.ceil(TitelCount / 2)
 
     local TitelDisplayCount = 0
@@ -114,14 +149,19 @@ local function OptionIgnoredTitles()
             totalHeight = totalHeight + 20
         end
     end
-    -- create text under trigger checkbox
-    local infoText = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-    infoText:SetPoint("TOPLEFT", checkBox, "BOTTOMLEFT", 0, -8)
-    infoText:SetText("You have " .. TitelCount .. " titles")
-    
-    -- Stelle die tatsächliche Höhe von 'content' basierend auf der Anzahl der Checkboxen ein
+    -- Set the actual height of 'content' based on the number of checkboxes
     content:SetHeight(totalHeight)
 end
 
--- global functions
-Bluedai_RT_Functions.OptionIgnoredTitles = OptionIgnoredTitles
+local function configPanelUpdate()
+    -- recreate the ContentFrame
+    destroyContentFrame()
+    createContentFrame()
+    createContentFrameTitle()
+    createCheckbox()
+    DisplayTitleCount()
+    OptionIgnoredTitles()
+end
+Bluedai_RT_Functions.configPanelUpdate = configPanelUpdate
+
+createPanel()

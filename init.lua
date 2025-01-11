@@ -8,6 +8,7 @@ local frame = CreateFrame("FRAME") -- Need a frame to respond to events
 frame:RegisterEvent("ADDON_LOADED") -- Fired when saved variables are loaded
 frame:RegisterEvent("PLAYER_ENTERING_WORLD") -- Fired when entering world and Titles are available
 frame:RegisterEvent("UNIT_NAME_UPDATE") -- Fired when the player's name change
+frame:RegisterEvent("KNOWN_TITLES_UPDATE") -- Fired when the player's titles change
 
 local function LoginResponse()
   local ResponseFrame = CreateFrame("Frame", "BluedaiRTFrame", UIParent, "BasicFrameTemplateWithInset")
@@ -63,12 +64,14 @@ function frame:OnEvent(event, arg1)
     frame:UnregisterEvent("ADDON_LOADED")
   end
   if event == "PLAYER_ENTERING_WORLD" then
-    Bluedai_RT_Functions.LoadTitles()
-    Bluedai_RT_Functions.OptionIgnoredTitles()
+    Bluedai_RT_Functions.SafeLoadTitles()
     if Bluedai_RT.EnabledLoginResponse then
       LoginResponse()
     end
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+  end
+  if event == "KNOWN_TITLES_UPDATE" then
+   Bluedai_RT_Functions.SafeLoadTitles()
   end
   if event == "UNIT_NAME_UPDATE" and arg1 == "player" then
     Bluedai_RT_Functions.show_new_title()
