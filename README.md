@@ -17,6 +17,9 @@ RandomTitle allows you to change your WoW character's title at every login or on
 
 ### Version History
 
+**0.4.9 - 31.07.2025**
+- compatibility with WoW 11.2.0
+
 **0.4.8 - 18.06.2025**
 - compatibility with WoW 11.1.7
 
