@@ -42,9 +42,10 @@ local function createCheckbox()
     checkBox.Text:SetText("Enabled Login Response")
     checkBox.tooltip = "Enable or disable the button after login"
 
-    checkBox:SetScript("OnShow", function(self)
-        self:SetChecked(Bluedai_RT.EnabledLoginResponse)
-    end)
+    checkBox:SetChecked(Bluedai_RT.EnabledLoginResponse)
+    -- checkBox:SetScript("OnShow", function(self)
+    --     self:SetChecked(Bluedai_RT.EnabledLoginResponse)
+    -- end)
     checkBox:SetScript("OnClick", function(self)
         Bluedai_RT.EnabledLoginResponse = not Bluedai_RT.EnabledLoginResponse
     end)
@@ -55,9 +56,10 @@ local function createCheckbox()
     checkBox2.Text:SetText("Show New Title Popup")
     checkBox2.tooltip = "Display a popup to show the new title after it is randomly changed"
 
-    checkBox2:SetScript("OnShow", function(self)
-        self:SetChecked(Bluedai_RT.EnabledshownewTitle)
-    end)
+    checkBox2:SetChecked(Bluedai_RT.EnabledshownewTitle)
+    -- checkBox2:SetScript("OnShow", function(self)
+    --     self:SetChecked(Bluedai_RT.EnabledshownewTitle)
+    -- end)
     checkBox2:SetScript("OnClick", function(self)
         Bluedai_RT.EnabledshownewTitle = not Bluedai_RT.EnabledshownewTitle
     end)
@@ -85,6 +87,15 @@ local function updateIgnoredTitles(id, shouldBeIgnored)
     end
 end
 
+local function setAllTitles(state)  -- state=true -> select all, false -> deselect all
+    wipe(Bluedai_RT.IgnoredTitles)
+    if not state then
+        for _, t in ipairs(Bluedai_RT.MyTitles) do
+            table.insert(Bluedai_RT.IgnoredTitles, t.id)
+        end
+    end
+end
+
 local function getTitleCount()
     local count = 0
     for _ in pairs(Bluedai_RT.MyTitles) do
@@ -98,6 +109,28 @@ local function DisplayTitleCount()
     local infoText = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
     infoText:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -80)
     infoText:SetText("You have " .. getTitleCount() .. " titles")
+end
+
+local function DisplaySelectAllButtons()
+    local frame = Bluedai_RT_Variables.contentFrame
+    local ButtonSelectAll = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    ButtonSelectAll:SetSize(130, 22)
+    ButtonSelectAll:SetPoint("TOPRIGHT", -180, -75)
+    ButtonSelectAll:SetText("Select all")
+    ButtonSelectAll:SetScript("OnClick", function()
+        setAllTitles(true)
+        Bluedai_RT_Functions.configPanelUpdate()
+    end)
+
+    local ButtonSelectNone = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    ButtonSelectNone:SetSize(130, 22)
+    ButtonSelectNone:SetPoint("TOPLEFT", ButtonSelectAll, "TOPRIGHT", 10, 0)
+    ButtonSelectNone:SetText("Deselect all")
+    ButtonSelectNone:SetScript("OnClick", function()
+        setAllTitles(false)
+        Bluedai_RT_Functions.configPanelUpdate()
+    end)
+
 end
 
 local function OptionIgnoredTitles()
@@ -129,10 +162,12 @@ local function OptionIgnoredTitles()
         checkBox.Text:SetText(titleInfo.name .. " (" .. titleInfo.id .. ")")
         checkBox.tooltip = titleInfo.name
 
-        -- Sets the checkbox based on whether the title is ignored or not
-        checkBox:SetScript("OnShow", function(self)
-            self:SetChecked(not isIgnored(titleInfo.id))
-        end)
+        checkBox:SetChecked(not isIgnored(titleInfo.id))
+
+        -- -- Sets the checkbox based on whether the title is ignored or not
+        -- checkBox:SetScript("OnShow", function(self)
+        --     self:SetChecked(not isIgnored(titleInfo.id))
+        -- end)
 
         -- Update IgnoredTitles when the checkbox is toggled
         checkBox:SetScript("OnClick", function(self)
@@ -161,6 +196,7 @@ local function configPanelUpdate()
     createCheckbox()
     DisplayTitleCount()
     OptionIgnoredTitles()
+    DisplaySelectAllButtons()
 end
 Bluedai_RT_Functions.configPanelUpdate = configPanelUpdate
 
