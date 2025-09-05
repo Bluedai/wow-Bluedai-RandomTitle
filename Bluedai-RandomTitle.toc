@@ -1,10 +1,10 @@
-## Interface: 110107, 110200
+## Interface: 110200
 ## Title: Bluedai-Random Title
 ## Title-deDE: Bluedai-Random Title
 ## Notes: Change your character's title randomly with various trigger options!
 ## Notes-deDE: Ändere deinen Charaktertitel zufällig mit verschiedenen Auslöseoptionen!
 ## Author: Bluedai
-## Version: 0.4.9
+## Version: 0.4.11
 ## IconTexture: Interface\Icons\Inv_misc_notefolded2a
 ## SavedVariables:
 ## SavedVariablesPerCharacter: Bluedai_RT

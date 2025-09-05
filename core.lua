@@ -76,4 +76,3 @@ SLASH_BluedaiRandomTitle_brt1 = "/brt";
 SlashCmdList["BluedaiRandomTitle_brt"] = function (msg)
     SetRandomTitle()
 end
-
