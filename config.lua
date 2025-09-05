@@ -43,9 +43,6 @@ local function createCheckbox()
     checkBox.tooltip = "Enable or disable the button after login"
 
     checkBox:SetChecked(Bluedai_RT.EnabledLoginResponse)
-    -- checkBox:SetScript("OnShow", function(self)
-    --     self:SetChecked(Bluedai_RT.EnabledLoginResponse)
-    -- end)
     checkBox:SetScript("OnClick", function(self)
         Bluedai_RT.EnabledLoginResponse = not Bluedai_RT.EnabledLoginResponse
     end)
@@ -57,9 +54,6 @@ local function createCheckbox()
     checkBox2.tooltip = "Display a popup to show the new title after it is randomly changed"
 
     checkBox2:SetChecked(Bluedai_RT.EnabledshownewTitle)
-    -- checkBox2:SetScript("OnShow", function(self)
-    --     self:SetChecked(Bluedai_RT.EnabledshownewTitle)
-    -- end)
     checkBox2:SetScript("OnClick", function(self)
         Bluedai_RT.EnabledshownewTitle = not Bluedai_RT.EnabledshownewTitle
     end)
@@ -163,11 +157,6 @@ local function OptionIgnoredTitles()
         checkBox.tooltip = titleInfo.name
 
         checkBox:SetChecked(not isIgnored(titleInfo.id))
-
-        -- -- Sets the checkbox based on whether the title is ignored or not
-        -- checkBox:SetScript("OnShow", function(self)
-        --     self:SetChecked(not isIgnored(titleInfo.id))
-        -- end)
 
         -- Update IgnoredTitles when the checkbox is toggled
         checkBox:SetScript("OnClick", function(self)
