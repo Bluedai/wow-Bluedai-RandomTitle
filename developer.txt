@@ -1,3 +1,5 @@
+# curseforge
+https://legacy.curseforge.com/wow/addons/bluedai-random-title
 # Interface Version 
 /run print(GetBuildInfo())
 /run print(select(4, GetBuildInfo()))
